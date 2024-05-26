@@ -13,8 +13,6 @@ def count_positives(lst):
             count_positive += 1
     lst[-1] = count_positive
     return lst
-
-# Test cases
 print(count_positives([-1, 1, 1, 1]))  # Output: [-1, 1, 1, 3]
 print(count_positives([1, 6, -4, -2, -7, -2]))  # Output: [1, 6, -4, -2, -7, 2]
 #Sum Total
