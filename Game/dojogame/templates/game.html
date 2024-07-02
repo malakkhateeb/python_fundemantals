@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static  'color.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+    <h1>Welcome to the Great Number Game! </h1>
+    <p> I am thinking of a number between 1 and 100 </p>
+    <p> Take a guess! </p>
+    <div class="first_in">
+    <form action="/greatnum" method="post">
+        {% csrf_token %}
+        <input class="inp_one" type="text" name="rand_num" min="1" max="100">
+        <input class="first" type="submit" name="btn">
+    </form>
+</div>
+<div class="{{ request.session.color }}-background">
+    <div class="card-body">
+        <form action="/playagain" method="post">
+            {% csrf_token %}
+            <input class="btn btn-secondary sec_in" type="submit" value="Play again">
+            <p>{{ request.session.result }}</p>
+        </form>
+    </div>
+</div>
+</div>
+</body>
+</html> 
