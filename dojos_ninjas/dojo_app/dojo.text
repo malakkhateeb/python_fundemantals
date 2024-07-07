@@ -1,0 +1,85 @@
+>>> from dojo_app.models import Dojo, Ninja
+______________________________________________
+
+>>> Dojo.objects.create(name="malak", city="jenin", state="pa")
+<Dojo: malak>
+>>> Dojo.objects.create(name="sara", city="nablus", state="pa")
+<Dojo: sara>
+>>> Dojo.objects.create(name="hanin", city="ramalla", state="pa")
+<Dojo: hanin>
+------------------------------------------------------------
+
+>>> Dojo.objects.all().delete()
+(3, {'dojo_app.Dojo': 3})
+>>> Dojo.objects.all()
+<QuerySet []>
+
+--------------------------------------------------------------
+>>> d1= Dojo.objects.create(name="malak", city="jenin", state="pa")
+>>> d2=Dojo.objects.create(name="sara", city="nablus", state="pa")
+>>> d3=Dojo.objects.create(name="hanin", city="ramalla", state="pa")
+>>> Dojo.objects.all()
+<QuerySet [<Dojo: malak>, <Dojo: sara>, <Dojo: hanin>]>
+-------------------------------------------------------------------
+>>> n1= Ninja.objects.create(first_name="malak" ,last_name="khateeb", dojos=d1)
+>>> n2= Ninja.objects.create(first_name="sara" ,last_name="jarrar", dojos=d1)
+>>> n2= Ninja.objects.create(first_name="hanin" ,last_name="jarrar", dojos=d1)
+>>>
+>>> Ninja.objects.all()
+<QuerySet [<Ninja: malak>, <Ninja: sara>, <Ninja: hanin>]>
+----------------------------------------------------------------------------------
+>>> n4=Ninja.objects.create(first_name="feras", last_name="amarneh", dojos= d2)
+>>> n5=Ninja.objects.create(first_name="ahmed", last_name="abubaker", dojos= d2)
+>>> n6=Ninja.objects.create(first_name="ali", last_name="ashqar", dojos= d2)
+>>> Ninja.objects.all()
+<QuerySet [<Ninja: malak>, <Ninja: sara>, <Ninja: hanin>, <Ninja: feras>, <Ninja: ahmed>, <Ninja: ali>]>
+--------------------------------------------------------------------------------------------------------
+>>> n7=Ninja.objects.create(first_name="waleed", last_name="rajabi", dojos= d3)
+>>> n8=Ninja.objects.create(first_name="mahmoud", last_name="saleem", dojos= d3)
+>>> n9=Ninja.objects.create(first_name="wael", last_name="zaidkilani", dojos= d3)
+>>> Ninja.objects.all()
+<QuerySet [<Ninja: malak>, <Ninja: sara>, <Ninja: hanin>, <Ninja: feras>, <Ninja: ahmed>, <Ninja: ali>, <Ninja: waleed>, <Ninja: mahmoud>, <Ninja: wael>]>
+---------------------------------------------------------------------------------------------
+1	malak	khateeb	4
+2	sara	jarrar	4
+3	hanin	jarrar	4
+6	feras	amarneh	5
+7	ahmed	abubaker	5
+8	ali	ashqar	5
+9	waleed	rajabi	6
+10	mahmoud	saleem	6
+11	wael	zaidkilani	6
+------------------------------------------------------------
+>>> Ninja.objects.filter(dojos=d1)
+<QuerySet [<Ninja: malak>, <Ninja: sara>, <Ninja: hanin>]>
+>>> d1.dojon.all()
+<QuerySet [<Ninja: malak>, <Ninja: sara>, <Ninja: hanin>]>
+
+
+-----------------------------------------
+>>> Ninja.objects.filter(dojos=d3)
+<QuerySet [<Ninja: waleed>, <Ninja: mahmoud>, <Ninja: wael>]>
+>>> d3.dojon.all()
+<QuerySet [<Ninja: waleed>, <Ninja: mahmoud>, <Ninja: wael>]>
+--------------------------------------------------------------
+>>> Ninja.objects.last()
+<Ninja: wael>
+-----------------------------
+(py4env) C:\training\python_stack\django\dojos_ninjas>python manage.py makemigrations
+Migrations for 'dojo_app':
+  dojo_app\migrations\0002_dojo_desc.py
+    - Add field desc to dojo
+
+(py4env) C:\training\python_stack\django\dojos_ninjas>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, dojo_app, sessions
+Running migrations:
+  Applying dojo_app.0002_dojo_desc... OK
+
+(py4env) C:\training\python_stack\django\dojos_ninjas>python manage.py shell
+Python 3.12.4 (tags/v3.12.4:8e8a4ba, Jun  6 2024, 19:30:16) [MSC v.1940 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from dojo_app.models import Dojo, Ninja
+>>> d4=Dojo.objects.create(name="ramiz", city="tulkarim", state="pa", desc="new dojo")
+----------------------------------------------------------------------------------------
