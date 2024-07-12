@@ -7,7 +7,7 @@ class Dojo(models.Model):
     desc = models.TextField(default="old dojo")
 
     def __str__(self):
-        return self.name 
+        return f"{self.name}" 
 
 class Ninja(models.Model):
     first_name=models.CharField(max_length=255)
@@ -15,4 +15,32 @@ class Ninja(models.Model):
     dojos=models.ForeignKey(Dojo, related_name="dojon", on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.first_name
+        return f"{self.first_name} {self.last_name}"    
+    
+def add_all():
+    return Dojo.objects.all()
+
+def add_Dojo(M):
+    name=M.POST['Name']
+    city=M.POST['city']
+    state=M.POST['state']
+    return Dojo.objects.create(
+            name=name,
+            city=city,
+            state=state)
+
+def F_key(id):
+    return Dojo.objects.get(id=id)
+
+
+def add_Ninja(request):
+    Ninja.objects.create(
+    first_name=request.POST['FirstName'],
+    last_name=request.POST['LastName'],
+    dojos=F_key(request.POST['id']))       
+    
+
+def remove_dojos(id):
+    remove=Dojo.objects.get(id=id)
+    remove.delete()
+
