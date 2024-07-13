@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styleone.css' %}">
+    <title>authors</title>
+</head>
+<body>
+    <h1>Add Author</h1>
+    <form action="/authors" method="post">
+        {% csrf_token %}
+        <label for="firstname"> First Name: </label>
+        <input type="text" name="first_name" id="firstname">
+        <label for="lastname"> Last Name: </label>
+        <input type="text" name="last_name" id="lastname">
+        <label for="note"> Notes:</label>
+        <input type="text" name="notes" id="note">
+        <button type="submit" name="author"> Add </button>
+    </form>
+    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        {% for author in authors %}
+        <tr>
+            <td>{{author.id}}</td>
+            <td>{{author.first_name}}  {{author.last_name}}</td>
+            <td><a href="/showauthors/{{author.id}}">View</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

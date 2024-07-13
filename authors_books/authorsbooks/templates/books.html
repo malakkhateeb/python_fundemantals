@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styletwo.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Add a Book</h1>
+    <form action="/books" method="post">
+        {% csrf_token %}
+        <label for="title_book"> Title </label>
+        <input type="text" name="title" id="title_book">
+        <label for="desc_book"> description </label>
+        <input type="text" name="description" id="desc_book">
+        <button name="book"> Add </button>
+    </form>
+    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Action</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{book.id}}</td>
+            <td>{{book.title}}</td>
+            <td><a href="/showbooks/{{book.id}}">View</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
