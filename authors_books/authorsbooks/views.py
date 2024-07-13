@@ -21,7 +21,7 @@ def showBooks(request,id_book):
     }
     return render (request, 'showbooks.html', context)
 
-#this method the main bage to add the authors 
+#this method the main page to add the authors 
 def indexAuthors(request):
     context={
         'authors': add_all_authors()
